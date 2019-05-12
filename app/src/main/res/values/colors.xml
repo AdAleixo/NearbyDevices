@@ -9,4 +9,6 @@
     <color name="VerdeClaro">#00B515</color>
     <color name="AzulLogo">#61BEFF</color>
     <color name="TeladeFundo">#E0F2FF</color>
+    <color name="ButtonPressed">#DBA305</color>
+    <color name="ButtonNotPressed">#FFBB33</color>
 </resources>
