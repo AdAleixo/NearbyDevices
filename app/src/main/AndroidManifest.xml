@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyDKSlVWDKx5HI-r2GSl3NlI7HCgfdNDQsk" />
@@ -21,7 +22,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TelaInicial"></activity>
         <activity android:name=".MainActivity"></activity>
+
 
 
     </application>
