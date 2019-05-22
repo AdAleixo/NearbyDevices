@@ -22,7 +22,7 @@ package com.google.android.gms.nearby.messages.samples.nearbydevices;
         import com.google.android.gms.nearby.messages.PublishOptions;
         import com.google.android.gms.nearby.messages.Strategy;
         import android.content.Context;
-        import android.content.SharedPreferences;
+
         import android.net.Uri;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
@@ -69,7 +69,7 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
 
         GoogleApiClient.OnConnectionFailedListener{
 
-    private static final String TAG = TelaAnuncio.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final int TTL_IN_SECONDS = 3 * 60; // Three minutes.
 

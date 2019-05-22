@@ -75,7 +75,7 @@ public class TelaOferta  extends AppCompatActivity implements GoogleApiClient.Co
 
         GoogleApiClient.OnConnectionFailedListener{
 
-    private static final String TAG = TelaOferta.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final int TTL_IN_SECONDS = 3 * 60; // Three minutes.
 
