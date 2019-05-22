@@ -27,4 +27,6 @@ dependencies {
     implementation 'com.android.support:design:23.4.0'
     implementation 'com.google.code.gson:gson:2.4'
     implementation 'com.google.android.gms:play-services-nearby:9.0.0'
+
+
 }

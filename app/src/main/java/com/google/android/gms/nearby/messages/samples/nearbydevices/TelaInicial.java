@@ -1,7 +1,7 @@
 package com.google.android.gms.nearby.messages.samples.nearbydevices;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
 
 public class TelaInicial extends AppCompatActivity {
 
