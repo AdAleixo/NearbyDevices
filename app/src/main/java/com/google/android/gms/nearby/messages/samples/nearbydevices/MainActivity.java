@@ -71,6 +71,20 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    //Button Ofertas
+    public void openTelaOfertas(View view) {
+        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
+        startActivity(intent);
+    }
+
+    //Button CRIAR ANUNCIO AINDA NAO FEITA A TELA
+    /*
+    public void openTelaOfertas(View view) {
+        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
+        startActivity(intent);
+    }
+    */
+
 
 
  /*

@@ -25,6 +25,8 @@
 
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".TelaAnuncio"></activity>
+        <activity android:name=".TelaOferta"></activity>
+        <activity android:name=".TelaInicial"></activity>
 
 
 
