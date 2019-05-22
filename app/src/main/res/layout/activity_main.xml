@@ -14,6 +14,7 @@
     tools:context="com.google.android.gms.nearby.messages.samples.nearbydevices.MainActivity">
 
 
+
     <Button
         android:id="@+id/buttonCrairAnuncio"
         android:layout_width="match_parent"
@@ -24,7 +25,11 @@
         android:id="@+id/buttonAnunciar"
         android:layout_width="match_parent"
         android:layout_height="79dp"
-        android:text="@string/ButtonAnuncio" />
+        android:text="@string/ButtonAnuncio"
+        android:onClick="openTelaAnuncio"
+
+        />
+
 
     <Button
         android:id="@+id/buttonOfertas"

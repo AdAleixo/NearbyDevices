@@ -24,9 +24,12 @@
 
 
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".TelaAnuncio"></activity>
+
 
 
 
     </application>
+
 
 </manifest>

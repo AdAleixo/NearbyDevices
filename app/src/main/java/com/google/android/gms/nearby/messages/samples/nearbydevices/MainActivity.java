@@ -51,10 +51,29 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addListenerOnButtonAnunciar();
-        addListenerOnButtonVerOferta();
+       // addListenerOnButtonAnunciar();
+       // addListenerOnButtonVerOferta();
 
+        /* TESTE
+        button = (Button) findViewById(R.id.buttonAnunciar);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openTelaAnuncio();
+            }
+        });
+        */
     }
+
+    //Button Anunciar
+    public void openTelaAnuncio(View view) {
+        Intent intent = new Intent(MainActivity.this, TelaAnuncio.class);
+        startActivity(intent);
+    }
+
+
+
+ /*
         //Activates the button "Anunciar"
     public void addListenerOnButtonAnunciar() {
 
@@ -70,6 +89,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
+
 
     //Activates the button "Ver Oferta"
 
@@ -87,5 +107,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
+    */
+
 
 }

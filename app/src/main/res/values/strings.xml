@@ -10,4 +10,6 @@
     <string name="ButtonAnuncio">Anunciar</string>
     <string name="ButtonOferta">Ofertas</string>
     <string name="ButtonCriarAnuncio">Criar Anuncio</string>
+    <string name="anunciar">Anunciar</string>
+    <string name="receberanuncio">Receber Anúncio</string>
 </resources>
