@@ -12,4 +12,11 @@
     <string name="ButtonCriarAnuncio">Criar Anuncio</string>
     <string name="anunciar">Anunciar</string>
     <string name="receberanuncio">Receber Anúncio</string>
+    <string name="nomeProduto">Nome do produto:</string>
+    <string name="telaCriaanuncio">Cadastre os produtos que deseja anunciar:</string>
+    <string name="criaAnuncioProdutoNome">Nome do Produto:</string>
+    <string name="hintProdutoNome">Coloque o nome do produto</string>
+    <string name="criaAnuncioProdutoPreco">Preço do produto</string>
+    <string name="linkProduto">Coloque o link do produto</string>
+
 </resources>

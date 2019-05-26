@@ -19,7 +19,8 @@
         android:id="@+id/buttonCrairAnuncio"
         android:layout_width="match_parent"
         android:layout_height="83dp"
-        android:text="@string/ButtonCriarAnuncio" />
+        android:text="@string/ButtonCriarAnuncio"
+        android:onClick="openTelaCriaAnuncio"/>
 
     <Button
         android:id="@+id/buttonAnunciar"
@@ -37,5 +38,7 @@
         android:text="@string/ButtonOferta"
         android:onClick="openTelaOfertas"
         />
+
+
 
 </LinearLayout>

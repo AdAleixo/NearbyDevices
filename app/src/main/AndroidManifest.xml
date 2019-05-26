@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.google.android.gms.nearby.messages.samples.nearbydevices">
-
-
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -19,7 +22,7 @@
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyDKSlVWDKx5HI-r2GSl3NlI7HCgfdNDQsk" />
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,18 +31,15 @@
         </activity>
 
 
-        <activity android:name=".MainActivity"></activity>
+
         <activity android:name=".TelaAnuncio"></activity>
         <activity android:name=".TelaOferta"></activity>
         <activity android:name=".TelaInicial"></activity>
-
+        <activity android:name=".TelaCriaAnuncio"></activity>
 
 
 
     </application>
-
-
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
 
 </manifest>

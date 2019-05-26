@@ -43,7 +43,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     Button button;
 
@@ -51,18 +51,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // addListenerOnButtonAnunciar();
-       // addListenerOnButtonVerOferta();
 
-        /* TESTE
-        button = (Button) findViewById(R.id.buttonAnunciar);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                openTelaAnuncio();
-            }
-        });
-        */
     }
 
     //Button Anunciar
@@ -77,51 +66,10 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
-    //Button CRIAR ANUNCIO AINDA NAO FEITA A TELA
-    /*
-    public void openTelaOfertas(View view) {
-        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
+    //Button Criar Ofertas
+    public void openTelaCriaAnuncio(View view) {
+        Intent intent = new Intent(MainActivity.this, TelaCriaAnuncio.class);
         startActivity(intent);
     }
-    */
-
-
-
- /*
-        //Activates the button "Anunciar"
-    public void addListenerOnButtonAnunciar() {
-
-        button = (Button) findViewById(R.id.buttonAnunciar);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                startActivity(new Intent(MainActivity.this, TelaAnuncio.class));
-
-            }
-        });
-    }
-
-
-    //Activates the button "Ver Oferta"
-
-    public void addListenerOnButtonVerOferta() {
-
-        button = (Button) findViewById(R.id.buttonAnunciar);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                startActivity(new Intent(MainActivity.this, TelaOferta.class));
-
-            }
-        });
-    }
-    */
-
 
 }

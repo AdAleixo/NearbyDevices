@@ -133,11 +133,6 @@ public class TelaOferta  extends AppCompatActivity implements GoogleApiClient.Co
         setContentView(R.layout.activity_verofertas);
         mSubscribeSwitch = (SwitchCompat) findViewById(R.id.subscribe_switch);
 
-
-        // Build the message that is going to be published. This contains the device name and a
-        // UUID.
-
-
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(final Message message) {
