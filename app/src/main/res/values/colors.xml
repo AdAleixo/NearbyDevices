@@ -11,4 +11,8 @@
     <color name="TeladeFundo">#E0F2FF</color>
     <color name="ButtonPressed">#DBA305</color>
     <color name="ButtonNotPressed">#FFBB33</color>
+    <color name="LaranjaVerm">#FF7D3E</color>
+    <color name="laranjaMarr">#862C00</color>
+    <color name="AmareloClaro">#FFF155</color>
+    <color name="Laranja">#FF9900</color>
 </resources>
