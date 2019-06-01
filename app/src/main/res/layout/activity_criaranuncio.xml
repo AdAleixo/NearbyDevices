@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logo"
+    android:background="@color/TeladeFundo"
     android:orientation="vertical">
 
     <TextView
@@ -28,8 +28,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/criaAnuncioProdutoNome"
-        android:inputType="textPersonName"
-         />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/precoProdutoText"
@@ -37,8 +36,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/criaAnuncioProdutoPreco"
-        android:inputType="textPersonName"
-         />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/linkProdutoText"
@@ -46,12 +44,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/linkProduto"
-        android:inputType="textPersonName"
-         />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/salvarButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFC107"
         android:text="Salvar" />
 </LinearLayout>
