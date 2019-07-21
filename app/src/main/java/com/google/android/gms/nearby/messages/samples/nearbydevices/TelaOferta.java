@@ -86,7 +86,7 @@ public class TelaOferta  extends AppCompatActivity implements GoogleApiClient.Co
      * Sets the time in seconds for a published message or a subscription to live. Set to three
      * minutes.
      */
-    private static final Strategy PUB_SUB_STRATEGY = (new Strategy.Builder()).zzjS(2)
+    private static final Strategy PUB_SUB_STRATEGY = (new Strategy.Builder()).zze(2)
             .setTtlSeconds(TTL_IN_SECONDS).build();
 
     /**
