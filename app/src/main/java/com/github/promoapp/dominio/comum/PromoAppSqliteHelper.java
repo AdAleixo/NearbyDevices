@@ -7,16 +7,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class PromoAppSqliteHelper extends SQLiteOpenHelper {
 
     public PromoAppSqliteHelper(Context context) {
-        super(context, "promoapp.db", null, 1);
+        super(context, "promo-app.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("CREATE TABLE PRODUTO (\n");
+        sqlBuilder.append("CREATE TABLE ANUNCIO (\n");
         sqlBuilder.append("    ID INTEGER PRIMARY KEY AUTOINCREMENT,\n");
         sqlBuilder.append("    NOME TEXT NOT NULL,\n");
-        sqlBuilder.append("    DESCRICAO TEXT NOT NULL\n");
+        sqlBuilder.append("    DESCRICAO TEXT NOT NULL,\n");
+        sqlBuilder.append("    PRECO REAL NULL,\n");
+        sqlBuilder.append("    URL TEXT NOT NULL,\n");
+        sqlBuilder.append("    VALIDADE INTEGER NOT NULL\n");
         sqlBuilder.append(")");
         db.execSQL(sqlBuilder.toString());
     }
