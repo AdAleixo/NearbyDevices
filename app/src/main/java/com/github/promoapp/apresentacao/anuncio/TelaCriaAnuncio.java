@@ -1,12 +1,12 @@
-package com.google.android.gms.nearby.messages.samples.nearbydevices;
+package com.github.promoapp.apresentacao.anuncio;
 
-import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.github.promoapp.R;
 
 public class TelaCriaAnuncio extends AppCompatActivity {
 
@@ -26,6 +26,6 @@ public class TelaCriaAnuncio extends AppCompatActivity {
 
     public void onSalvarAnuncio() {
         EditText nomeAnuncioText = (EditText) findViewById(R.id.nomeText);
-        
+
     }
 }

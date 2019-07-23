@@ -1,4 +1,4 @@
-package com.google.android.gms.nearby.messages.samples.nearbydevices;
+package com.github.promoapp.dominio.anuncio;
 import android.os.Build;
 
 import com.google.android.gms.nearby.messages.Message;
@@ -45,7 +45,7 @@ public class DeviceMessage {
         // TODO(developer): add other fields that must be included in the Nearby Message payload.
     }
 
-    protected String getMessageBody() {
+    public String getMessageBody() {
         return mMessageBody + " " + mMessageUrl;
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NearbyDevices</string>
+    <string name="app_name">PromoApp</string>
 
     <string name="discover_nearby_devices">Ver ofertas</string>
     <string name="share_device_information">Anunciar</string>

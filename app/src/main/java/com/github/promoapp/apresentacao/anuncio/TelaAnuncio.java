@@ -1,46 +1,44 @@
-package com.google.android.gms.nearby.messages.samples.nearbydevices;
+package com.github.promoapp.apresentacao.anuncio;
 
-        import android.content.Context;
-        import android.content.SharedPreferences;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.widget.SwitchCompat;
-        import android.text.TextUtils;
-        import android.util.Log;
-        import android.widget.CompoundButton;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.ListView;
 
-        import com.google.android.gms.common.ConnectionResult;
-        import com.google.android.gms.common.api.GoogleApiClient;
-        import com.google.android.gms.common.api.ResultCallback;
-        import com.google.android.gms.common.api.Status;
-        import com.google.android.gms.nearby.Nearby;
-        import com.google.android.gms.nearby.messages.Message;
-        import com.google.android.gms.nearby.messages.MessageListener;
-        import com.google.android.gms.nearby.messages.MessagesOptions;
-        import com.google.android.gms.nearby.messages.NearbyPermissions;
-        import com.google.android.gms.nearby.messages.PublishCallback;
-        import com.google.android.gms.nearby.messages.PublishOptions;
-        import com.google.android.gms.nearby.messages.Strategy;
+import com.github.promoapp.R;
+import com.github.promoapp.apresentacao.MainActivity;
+import com.github.promoapp.dominio.anuncio.DeviceMessage;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
+import com.google.android.gms.nearby.messages.MessagesOptions;
+import com.google.android.gms.nearby.messages.NearbyPermissions;
+import com.google.android.gms.nearby.messages.PublishCallback;
+import com.google.android.gms.nearby.messages.PublishOptions;
+import com.google.android.gms.nearby.messages.Strategy;
 
-        import android.support.design.widget.Snackbar;
-        import android.support.v4.app.FragmentActivity;
-
-        import android.view.View;
-        import android.widget.ArrayAdapter;
-
-        import android.widget.ListView;
-
-        import java.util.ArrayList;
-        import java.util.List;
-
-        import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
 
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -85,12 +83,10 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
     private Message mPubMessage;
 
 
-
     /**
      * Adapter for working with messages from nearby publishers.
      */
     private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
-
 
 
     @Override
@@ -171,6 +167,7 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
         Log.i(TAG, "Unpublishing.");
         Nearby.Messages.unpublish(mGoogleApiClient, mPubMessage);
     }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "GoogleApiClient connected");
@@ -184,6 +181,7 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
 
         }
     }
+
     @Override
     public void onConnectionSuspended(int i) {
         logAndShowSnackbar("Connection suspended. Error code: " + i);
@@ -216,6 +214,7 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
                 .enableAutoManage(this, this)
                 .build();
     }
+
     private void logAndShowSnackbar(final String text) {
         Log.w(TAG, text);
         View container = findViewById(R.id.activity_main_container);
