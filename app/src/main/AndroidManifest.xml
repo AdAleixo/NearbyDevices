@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.promoapp">
 
@@ -21,21 +20,35 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".apresentacao.anuncio.AnuncioListActivity"
+            android:label="@string/title_anuncio_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".apresentacao.anuncio.AnuncioDetailActivity"
+            android:label="@string/title_anuncio_detail"
+            android:parentActivityName=".apresentacao.anuncio.AnuncioListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.promoapp.apresentacao.anuncio.AnuncioListActivity" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyDKSlVWDKx5HI-r2GSl3NlI7HCgfdNDQsk" />
 
-        <activity android:name="com.github.promoapp.apresentacao.MainActivity">
+        <activity android:name=".apresentacao.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.github.promoapp.apresentacao.anuncio.TelaAnuncio"></activity>
-        <activity android:name="com.github.promoapp.apresentacao.promocao.TelaOferta"></activity>
-        <activity android:name="com.github.promoapp.apresentacao.inicio.TelaInicial"></activity>
-        <activity android:name="com.github.promoapp.apresentacao.anuncio.TelaCriaAnuncio"></activity>
+        <activity android:name=".apresentacao.anuncio.TelaAnuncio" />
+        <activity android:name=".apresentacao.promocao.TelaOferta" />
+        <activity android:name=".apresentacao.inicio.TelaInicial" />
+        <activity android:name=".apresentacao.anuncio.TelaCriaAnuncio" />
     </application>
+
 </manifest>

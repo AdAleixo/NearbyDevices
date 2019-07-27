@@ -18,5 +18,8 @@
     <string name="hintProdutoNome">Coloque o nome do produto</string>
     <string name="criaAnuncioProdutoPreco">Preço do produto</string>
     <string name="linkProduto">Coloque o link do produto</string>
+    <string name="title_anuncio_list">Anuncios</string>
+    <string name="title_anuncio_detail">Anuncio Detail</string>
+    <string name="tituloAnuncios">Anúncios</string>
 
 </resources>

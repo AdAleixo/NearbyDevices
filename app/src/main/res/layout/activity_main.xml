@@ -39,6 +39,13 @@
         android:onClick="openTelaOfertas"
         android:text="@string/ButtonOferta" />
 
+    <Button
+        android:id="@+id/anunciosButton"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@color/AmareloClaro"
+        android:onClick="exibirAnuncioListActivity"
+        android:text="@string/tituloAnuncios" />
 
 
 </LinearLayout>
