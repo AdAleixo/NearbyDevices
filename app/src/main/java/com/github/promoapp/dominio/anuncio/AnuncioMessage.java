@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
  * to the Message payload, which helps Nearby distinguish between multiple devices with
  * the same model name.
  */
-public class DeviceMessage {
+public class AnuncioMessage {
     private static final Gson gson = new Gson();
 
     private final String mUUID;
@@ -23,22 +23,22 @@ public class DeviceMessage {
      * Builds a new {@link Message} object using a unique identifier.
      */
     public static Message newNearbyMessage(String instanceId) {
-        DeviceMessage deviceMessage = new DeviceMessage(instanceId);
-        return new Message(gson.toJson(deviceMessage).getBytes(Charset.forName("UTF-8")));
+        AnuncioMessage anuncioMessage = new AnuncioMessage(instanceId);
+        return new Message(gson.toJson(anuncioMessage).getBytes(Charset.forName("UTF-8")));
     }
 
     /**
      * Creates a {@code DeviceMessage} object from the string used to construct the payload to a
      * {@code Nearby} {@code Message}.
      */
-    public static DeviceMessage fromNearbyMessage(Message message) {
+    public static AnuncioMessage fromNearbyMessage(Message message) {
         String nearbyMessageString = new String(message.getContent()).trim();
         return gson.fromJson(
                 (new String(nearbyMessageString.getBytes(Charset.forName("UTF-8")))),
-                DeviceMessage.class);
+                AnuncioMessage.class);
     }
 
-    private DeviceMessage(String uuid) {
+    private AnuncioMessage(String uuid) {
         mUUID = uuid;
         mMessageBody = Build.MODEL;
         mMessageUrl = "https://www.facebook.com";

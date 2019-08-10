@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.MainActivity;
-import com.github.promoapp.dominio.anuncio.DeviceMessage;
+import com.github.promoapp.dominio.anuncio.AnuncioMessage;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -52,7 +52,7 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
 
     /**
      * Creates a UUID and saves it to {@link SharedPreferences}. The UUID is added to the published
-     * message to avoid it being undelivered due to de-duplication. See {@link DeviceMessage} for
+     * message to avoid it being undelivered due to de-duplication. See {@link AnuncioMessage} for
      * details.
      */
     private static String getUUID(SharedPreferences sharedPreferences) {
@@ -99,14 +99,14 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
             public void onFound(final Message message) {
                 // Called when a new message is found.
                 mNearbyDevicesArrayAdapter.add(
-                        DeviceMessage.fromNearbyMessage(message).getMessageBody());
+                        AnuncioMessage.fromNearbyMessage(message).getMessageBody());
             }
 
             @Override
             public void onLost(final Message message) {
                 // Called when a message is no longer detectable nearby.
                 mNearbyDevicesArrayAdapter.remove(
-                        DeviceMessage.fromNearbyMessage(message).getMessageBody());
+                        AnuncioMessage.fromNearbyMessage(message).getMessageBody());
             }
         };
 
