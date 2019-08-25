@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.promoapp.R;
-import com.github.promoapp.apresentacao.anuncio.dummy.DummyContent;
+import com.github.promoapp.dominio.anuncio.Anuncio;
+import com.github.promoapp.dominio.anuncio.AnuncioRepository;
+
 
 /**
  * A fragment representing a single Anuncio detail screen.
@@ -28,7 +30,7 @@ public class AnuncioDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Anuncio mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -45,12 +47,19 @@ public class AnuncioDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            Long id = Long.parseLong(getArguments().getString(ARG_ITEM_ID));
+            AnuncioRepository anuncioRepository = new AnuncioRepository(getContext());
+
+            if (id != 0) {
+                mItem = anuncioRepository.recuperarPorId(id);
+            } else {
+                mItem = new Anuncio();
+            }
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.getNome());
             }
         }
     }
@@ -62,7 +71,7 @@ public class AnuncioDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.anuncio_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.anuncio_detail)).setText(mItem.getDescricao());
         }
 
         return rootView;
