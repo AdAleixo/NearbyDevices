@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.github.promoapp.R;
+import com.github.promoapp.dominio.anuncio.Anuncio;
+import com.github.promoapp.dominio.anuncio.AnuncioRepository;
 
 /**
  * An activity representing a single Anuncio detail screen. This
@@ -29,11 +32,37 @@ public class AnuncioDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                try {
+                    AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
+                    Anuncio anuncio = new Anuncio();
+
+                    EditText nomeAnuncioText = (EditText) findViewById(R.id.nomeText);
+                    anuncio.setNome(nomeAnuncioText.getText().toString());
+
+                    EditText nomeProdutoText = (EditText) findViewById(R.id.nomeProdutoText);
+                    anuncio.setDescricao(nomeProdutoText.getText().toString());
+
+                    EditText precoProdutoText = (EditText) findViewById(R.id.precoProdutoText);
+                    double preco = Double.parseDouble(precoProdutoText.getText().toString());
+                    anuncio.setPreco(preco);
+
+                    EditText linkPrdotutoText = (EditText) findViewById(R.id.linkProdutoText);
+                    anuncio.setUrl(linkPrdotutoText.getText().toString());
+
+                    anuncioRepository.salvar(anuncio);
+
+                    Snackbar.make(view, "Anúncio salvo com sucesso", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }catch (Exception ex){
+                    Snackbar.make(view, "Ocorreu um erro ao tentar salvar o anúncio",
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
             }
         });
 
@@ -45,7 +74,7 @@ public class AnuncioDetailActivity extends AppCompatActivity {
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
+        // (e.g. when rotating the screen from portrait to  landscape).
         // In this case, the fragment will automatically be re-added
         // to its container so we don't need to manually add it.
         // For more information, see the Fragments API guide at:
