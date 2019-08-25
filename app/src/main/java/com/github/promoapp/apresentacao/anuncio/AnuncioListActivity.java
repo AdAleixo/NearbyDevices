@@ -38,8 +38,22 @@ public class AnuncioListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (mTwoPane) {
+                    Bundle arguments = new Bundle();
+                    arguments.putString(AnuncioDetailFragment.ARG_ITEM_ID, "0");
+                    AnuncioDetailFragment fragment = new AnuncioDetailFragment();
+                    fragment.setArguments(arguments);
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.anuncio_detail_container, fragment)
+                            .commit();
+                } else {
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, AnuncioDetailActivity.class);
+                    intent.putExtra(AnuncioDetailFragment.ARG_ITEM_ID, "0");
+
+                    context.startActivity(intent);
+                }
             }
         });
 

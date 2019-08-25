@@ -38,6 +38,25 @@ public class AnuncioRepository {
         return anuncios;
     }
 
+    public Anuncio recuperarPorId(Long id) {
+        Anuncio anuncio = null;
+        PromoAppSqliteHelper openHelper = new PromoAppSqliteHelper(this.context);
+        SQLiteDatabase database = openHelper.getReadableDatabase();
+        String[] campos = {"ID", "NOME", "DESCRICAO", "PRECO", "URL", "VALIDADE"};
+
+        Cursor cursor = database.query("ANUNCIO", campos, "ID = ?",
+                new String[]{id.toString()}, null, null, "VALIDADE DESC");
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                anuncio = criarAnuncio(cursor);
+            }
+        }
+
+        database.close();
+        return anuncio;
+    }
+
     private Anuncio criarAnuncio(Cursor cursor) {
         Anuncio anuncio = new Anuncio();
         anuncio.setId(cursor.getLong(0));
