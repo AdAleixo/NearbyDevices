@@ -16,6 +16,8 @@ import com.github.promoapp.R;
 import com.github.promoapp.dominio.anuncio.Anuncio;
 import com.github.promoapp.dominio.anuncio.AnuncioRepository;
 
+import java.util.Date;
+
 /**
  * An activity representing a single Anuncio detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
@@ -52,6 +54,8 @@ public class AnuncioDetailActivity extends AppCompatActivity {
 
                     EditText linkPrdotutoText = (EditText) findViewById(R.id.linkProdutoText);
                     anuncio.setUrl(linkPrdotutoText.getText().toString());
+
+                    anuncio.setValidade(new Date());
 
                     anuncioRepository.salvar(anuncio);
 
