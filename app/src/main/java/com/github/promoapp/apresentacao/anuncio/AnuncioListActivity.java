@@ -56,7 +56,9 @@ public class AnuncioListActivity extends AppCompatActivity {
         try {
             AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
             List<Anuncio> anuncios = anuncioRepository.recuperarTodos();
-            recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios, mTwoPane));
+
+            recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios,
+                    mTwoPane));
         } catch (Exception ex) {
             ex.printStackTrace();
 
