@@ -22,6 +22,17 @@ public class PromoAppSqliteHelper extends SQLiteOpenHelper {
         sqlBuilder.append("    VALIDADE INTEGER NOT NULL\n");
         sqlBuilder.append(")");
         db.execSQL(sqlBuilder.toString());
+
+        sqlBuilder = new StringBuilder();
+        sqlBuilder.append("CREATE TABLE ANUNCIO_RECEBIDO (\n");
+        sqlBuilder.append("    ID INTEGER PRIMARY KEY AUTOINCREMENT,\n");
+        sqlBuilder.append("    NOME TEXT NOT NULL,\n");
+        sqlBuilder.append("    DESCRICAO TEXT NOT NULL,\n");
+        sqlBuilder.append("    PRECO REAL NULL,\n");
+        sqlBuilder.append("    URL TEXT NOT NULL,\n");
+        sqlBuilder.append("    VALIDADE INTEGER NOT NULL\n");
+        sqlBuilder.append(")");
+        db.execSQL(sqlBuilder.toString());
     }
 
     @Override

@@ -23,7 +23,7 @@ public class AnuncioRepository {
         List<Anuncio> anuncios = new ArrayList<>();
         PromoAppSqliteHelper openHelper = new PromoAppSqliteHelper(this.context);
         SQLiteDatabase database = openHelper.getReadableDatabase();
-        String[] campos = {"NOME", "DESCRICAO", "PRECO", "URL", "VALIDADE"};
+        String[] campos = {"ID", "NOME", "DESCRICAO", "PRECO", "URL", "VALIDADE"};
 
         Cursor cursor = database.query("ANUNCIO", campos, null,
                 null, null, null, "VALIDADE DESC");
@@ -40,12 +40,12 @@ public class AnuncioRepository {
 
     private Anuncio criarAnuncio(Cursor cursor) {
         Anuncio anuncio = new Anuncio();
-        anuncio.setId(cursor.getLong(1));
-        anuncio.setNome(cursor.getString(2));
-        anuncio.setDescricao(cursor.getString(3));
-        anuncio.setPreco(cursor.getDouble(4));
-        anuncio.setUrl(cursor.getString(5));
-        anuncio.setValidade(new Date(cursor.getLong(6)));
+        anuncio.setId(cursor.getLong(0));
+        anuncio.setNome(cursor.getString(1));
+        anuncio.setDescricao(cursor.getString(2));
+        anuncio.setPreco(cursor.getDouble(3));
+        anuncio.setUrl(cursor.getString(4));
+        anuncio.setValidade(new Date(cursor.getLong(5)));
         return anuncio;
     }
 
