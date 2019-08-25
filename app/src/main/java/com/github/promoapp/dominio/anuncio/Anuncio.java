@@ -5,8 +5,8 @@ import java.util.Date;
 public class Anuncio {
 
     private Long id;
-    private String nome;
-    private String descricao;
+    private String nome = "Nome";
+    private String descricao = "Descricao";
     private Double preco;
     private String url;
     private Date validade;

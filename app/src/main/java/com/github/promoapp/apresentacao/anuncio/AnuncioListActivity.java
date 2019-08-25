@@ -18,6 +18,7 @@ import com.github.promoapp.R;
 import com.github.promoapp.dominio.anuncio.Anuncio;
 import com.github.promoapp.dominio.anuncio.AnuncioRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public class AnuncioListActivity extends AppCompatActivity {
@@ -38,21 +39,28 @@ public class AnuncioListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(AnuncioDetailFragment.ARG_ITEM_ID, "0");
-                    AnuncioDetailFragment fragment = new AnuncioDetailFragment();
-                    fragment.setArguments(arguments);
+                try {
+                    if (mTwoPane) {
+                        Bundle arguments = new Bundle();
+                        arguments.putString(AnuncioDetailFragment.ARG_ITEM_ID, "0");
+                        AnuncioDetailFragment fragment = new AnuncioDetailFragment();
+                        fragment.setArguments(arguments);
 
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.anuncio_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, AnuncioDetailActivity.class);
-                    intent.putExtra(AnuncioDetailFragment.ARG_ITEM_ID, "0");
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.anuncio_detail_container, fragment)
+                                .commit();
+                    } else {
+                        Context context = findViewById(R.id.anuncio_list).getContext();
+                        Intent intent = new Intent(context, AnuncioDetailActivity.class);
+                        intent.putExtra(AnuncioDetailFragment.ARG_ITEM_ID, "0");
 
-                    context.startActivity(intent);
+                        context.startActivity(intent);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                    Snackbar.make(findViewById(R.id.anuncio_list), "Erro: " + ex.getMessage(),
+                            Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
         });
@@ -69,6 +77,15 @@ public class AnuncioListActivity extends AppCompatActivity {
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         try {
             AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
+
+            Anuncio anuncio = new Anuncio();
+            anuncio.setNome("Nome 2");
+            anuncio.setDescricao("Descrição 2");
+            anuncio.setValidade(new Date());
+            anuncio.setUrl("http://facebook.com");
+            anuncio.setPreco(12.99);
+            anuncioRepository.salvar(anuncio);
+
             List<Anuncio> anuncios = anuncioRepository.recuperarTodos();
 
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios,
