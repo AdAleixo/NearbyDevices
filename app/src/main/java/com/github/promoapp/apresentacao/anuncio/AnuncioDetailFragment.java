@@ -40,7 +40,7 @@ public class AnuncioDetailFragment extends Fragment {
             CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
 
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.getNome());
+//                appBarLayout.setTitle("Anúncio");
             }
         }
     }
@@ -52,7 +52,7 @@ public class AnuncioDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.anuncio_detail, container, false);
 
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.anuncio_detail)).setText(mItem.getDescricao());
+            // ((TextView) rootView.findViewById(R.id.anuncio_detail)).setText(mItem.getDescricao());
         }
 
         return rootView;

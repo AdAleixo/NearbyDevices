@@ -77,7 +77,7 @@ public class AnuncioListActivity extends AppCompatActivity {
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         try {
             AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
-
+            /*
             Anuncio anuncio = new Anuncio();
             anuncio.setNome("Nome 2");
             anuncio.setDescricao("Descrição 2");
@@ -85,7 +85,7 @@ public class AnuncioListActivity extends AppCompatActivity {
             anuncio.setUrl("http://facebook.com");
             anuncio.setPreco(12.99);
             anuncioRepository.salvar(anuncio);
-
+            */
             List<Anuncio> anuncios = anuncioRepository.recuperarTodos();
 
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios,
@@ -139,8 +139,8 @@ public class AnuncioListActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.anuncio_list_content, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.anuncio_list_content, parent, false);
 
             return new ViewHolder(view);
         }

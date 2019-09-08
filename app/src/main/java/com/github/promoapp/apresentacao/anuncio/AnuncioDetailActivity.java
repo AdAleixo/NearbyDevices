@@ -60,7 +60,6 @@ public class AnuncioDetailActivity extends AppCompatActivity {
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-
             }
         });
 
