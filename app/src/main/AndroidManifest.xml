@@ -22,7 +22,9 @@
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyDKSlVWDKx5HI-r2GSl3NlI7HCgfdNDQsk" />
 
-        <activity android:name=".MainActivity">
+
+
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +33,7 @@
         </activity>
 
 
-
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".TelaAnuncio"></activity>
         <activity android:name=".TelaOferta"></activity>
         <activity android:name=".TelaInicial"></activity>
