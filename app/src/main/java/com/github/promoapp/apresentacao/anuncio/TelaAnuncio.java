@@ -94,8 +94,7 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anunciar_view);
         mPublishSwitch = (SwitchCompat) findViewById(R.id.publish_switch);
-        mPubMessage = AnuncioMessage.newNearbyMessage(getUUID(getSharedPreferences(
-                getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
+
 
         mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -129,6 +128,9 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
      * TTLs.
      */
     private void publish() {
+
+        mPubMessage = AnuncioMessage.newNearbyMessage(getUUID(getSharedPreferences(
+                getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
         Log.i(TAG, "Publishing");
         PublishOptions options = new PublishOptions.Builder()
                 .setStrategy(PUB_SUB_STRATEGY)

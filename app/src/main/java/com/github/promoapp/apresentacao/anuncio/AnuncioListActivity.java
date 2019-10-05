@@ -77,15 +77,7 @@ public class AnuncioListActivity extends AppCompatActivity {
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         try {
             AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
-            /*
-            Anuncio anuncio = new Anuncio();
-            anuncio.setNome("Nome 2");
-            anuncio.setDescricao("Descrição 2");
-            anuncio.setValidade(new Date());
-            anuncio.setUrl("http://facebook.com");
-            anuncio.setPreco(12.99);
-            anuncioRepository.salvar(anuncio);
-            */
+
             List<Anuncio> anuncios = anuncioRepository.recuperarTodos();
 
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios,

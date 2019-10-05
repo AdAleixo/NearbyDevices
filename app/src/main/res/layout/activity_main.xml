@@ -15,14 +15,6 @@
 
 
     <Button
-        android:id="@+id/buttonCrairAnuncio"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:background="@color/LaranjaVerm"
-        android:onClick="openTelaCriaAnuncio"
-        android:text="@string/ButtonCriarAnuncio" />
-
-    <Button
         android:id="@+id/buttonAnunciar"
         android:layout_width="match_parent"
         android:layout_height="79dp"

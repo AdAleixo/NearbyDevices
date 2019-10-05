@@ -8,7 +8,6 @@ import android.view.View;
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.anuncio.AnuncioListActivity;
 import com.github.promoapp.apresentacao.anuncio.TelaAnuncio;
-import com.github.promoapp.apresentacao.anuncio.TelaCriaAnuncio;
 import com.github.promoapp.apresentacao.promocao.TelaOferta;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Button Criar Ofertas
-    public void openTelaCriaAnuncio(View view) {
-        Intent intent = new Intent(MainActivity.this, TelaCriaAnuncio.class);
-        startActivity(intent);
-    }
+   
 
 }

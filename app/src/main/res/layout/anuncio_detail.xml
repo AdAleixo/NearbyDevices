@@ -42,13 +42,4 @@
         android:hint="@string/linkProduto"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/salvarButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFC107"
-
-        android:text="Salvar"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
 </LinearLayout>
