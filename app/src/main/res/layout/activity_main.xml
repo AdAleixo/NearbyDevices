@@ -15,15 +15,6 @@
 
 
     <Button
-        android:id="@+id/buttonAnunciar"
-        android:layout_width="match_parent"
-        android:layout_height="79dp"
-        android:background="#FFC107"
-        android:onClick="openTelaAnuncio"
-        android:text="@string/ButtonAnuncio" />
-
-
-    <Button
         android:id="@+id/buttonOfertas"
         android:layout_width="match_parent"
         android:layout_height="88dp"

@@ -45,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".apresentacao.anuncio.TelaAnuncio" />
         <activity android:name=".apresentacao.promocao.TelaOferta" />
         <activity android:name=".apresentacao.inicio.TelaInicial" />
     </application>

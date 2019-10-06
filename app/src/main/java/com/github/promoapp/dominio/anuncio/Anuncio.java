@@ -5,9 +5,9 @@ import java.util.Date;
 public class Anuncio {
 
     private Long id;
-    private String nome = "Nome";
-    private String descricao = "Descricao";
-    private Double preco;
+    private String nome;
+    private String descricao;
+    private Double preco=0.0;
     private String url;
     private Date validade;
 
@@ -21,6 +21,16 @@ public class Anuncio {
         this.preco = preco;
         this.url = url;
         this.validade = validade;
+    }
+
+    @Override
+    public String toString() {
+        return "Anuncio{" +
+                "nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", preco=" + preco +
+                ", url='" + url + '\'' +
+                '}';
     }
 
     public Long getId() {

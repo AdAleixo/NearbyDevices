@@ -40,7 +40,7 @@
         app:backgroundTint="@color/AzulLogo"
         app:layout_anchor="@+id/anuncio_detail_container"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@android:drawable/stat_notify_more" />
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_toolbar"

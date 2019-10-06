@@ -52,7 +52,10 @@ public class AnuncioDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.anuncio_detail, container, false);
 
         if (mItem != null) {
-            // ((TextView) rootView.findViewById(R.id.anuncio_detail)).setText(mItem.getDescricao());
+            ((TextView) rootView.findViewById(R.id.nomeText)).setText(mItem.getNome());
+            ((TextView) rootView.findViewById(R.id.nomeProdutoText)).setText(mItem.getDescricao());
+            ((TextView) rootView.findViewById(R.id.precoProdutoText)).setText(mItem.getPreco()+"");
+            ((TextView) rootView.findViewById(R.id.linkProdutoText)).setText(mItem.getUrl());
         }
 
         return rootView;

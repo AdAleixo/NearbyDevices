@@ -1,5 +1,4 @@
 package com.github.promoapp.dominio.anuncio;
-import android.os.Build;
 
 import com.google.android.gms.nearby.messages.Message;
 import com.google.gson.Gson;
@@ -16,14 +15,13 @@ public class AnuncioMessage {
     private static final Gson gson = new Gson();
 
     private final String mUUID;
-    private final String mMessageBody;
-    private final String mMessageUrl;
+    private final Anuncio mAnuncio;
 
     /**
      * Builds a new {@link Message} object using a unique identifier.
      */
-    public static Message newNearbyMessage(String instanceId) {
-        AnuncioMessage anuncioMessage = new AnuncioMessage(instanceId);
+    public static Message newNearbyMessage(String instanceId, Anuncio anuncio) {
+        AnuncioMessage anuncioMessage = new AnuncioMessage(instanceId, anuncio);
         return new Message(gson.toJson(anuncioMessage).getBytes(Charset.forName("UTF-8")));
     }
 
@@ -33,19 +31,18 @@ public class AnuncioMessage {
      */
     public static AnuncioMessage fromNearbyMessage(Message message) {
         String nearbyMessageString = new String(message.getContent()).trim();
+
         return gson.fromJson(
                 (new String(nearbyMessageString.getBytes(Charset.forName("UTF-8")))),
                 AnuncioMessage.class);
     }
 
-    private AnuncioMessage(String uuid) {
+    private AnuncioMessage(String uuid, Anuncio anuncio) {
         mUUID = uuid;
-        mMessageBody = Build.MODEL;
-        mMessageUrl = "https://www.facebook.com";
-        // TODO(developer): add other fields that must be included in the Nearby Message payload.
+        mAnuncio = anuncio;
     }
 
-    public String getMessageBody() {
-        return mMessageBody + " " + mMessageUrl;
+    public Anuncio getAnuncio() {
+        return mAnuncio;
     }
 }

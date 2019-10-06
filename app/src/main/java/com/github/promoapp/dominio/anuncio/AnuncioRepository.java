@@ -86,6 +86,20 @@ public class AnuncioRepository {
                     new String[]{anuncio.getId().toString()});
         }
 
+
+
+        database.close();
+    }
+
+    public void deletar(Anuncio anuncio){
+
+        PromoAppSqliteHelper openHelper = new PromoAppSqliteHelper(this.context);
+        SQLiteDatabase database = openHelper.getWritableDatabase();
+
+
+            database.delete("ANUNCIO", "ID = ?",
+                    new String[]{anuncio.getId().toString()});
+
         database.close();
     }
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -61,6 +62,9 @@ public class AnuncioDetailActivity extends AppCompatActivity {
                     Snackbar.make(view, "Ocorreu um erro ao tentar salvar o anúncio",
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    Log.i(getClass().getSimpleName(),ex.getMessage());
+                    ex.printStackTrace();
+
                 }
             }
         });

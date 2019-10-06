@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.github.promoapp.R;
@@ -202,6 +203,7 @@ public class AnuncioListActivity extends AppCompatActivity
         public void onBindViewHolder(final AnuncioViewHolder holder, int position) {
             holder.mIdView.setText(mValues.get(position).getId().toString());
             holder.mContentView.setText(mValues.get(position).getNome());
+            holder.mAnuncio = mValues.get(position);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
@@ -222,9 +224,10 @@ public class AnuncioListActivity extends AppCompatActivity
 
             TextView mIdView;
             TextView mContentView;
-            SwitchCompat mPublishSwitch;
+            Switch mPublishSwitch;
             GoogleApiClient mGoogleApiClient;
             View mView;
+            Anuncio mAnuncio;
             AnuncioListActivity mActivity;
             Message mPubMessage;
 
@@ -238,7 +241,7 @@ public class AnuncioListActivity extends AppCompatActivity
                 mGoogleApiClient = googleApiClient;
                 mIdView = view.findViewById(R.id.id_text);
                 mContentView = view.findViewById(R.id.content);
-                mPublishSwitch = view.findViewById(R.id.publish_switch);
+                mPublishSwitch = view.findViewById(R.id.publishSwitch);
 
                 mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -257,7 +260,7 @@ public class AnuncioListActivity extends AppCompatActivity
             private void publish() {
                 mPubMessage = AnuncioMessage.newNearbyMessage(getUUID(mActivity.getSharedPreferences(
                                 mActivity.getApplicationContext().getPackageName(),
-                                Context.MODE_PRIVATE)));
+                                Context.MODE_PRIVATE)), mAnuncio);
 
                 Log.i(getClass().getSimpleName(), "Publishing");
 

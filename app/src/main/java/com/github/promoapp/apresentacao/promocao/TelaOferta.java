@@ -99,14 +99,14 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
             public void onFound(final Message message) {
                 // Called when a new message is found.
                 mNearbyDevicesArrayAdapter.add(
-                        AnuncioMessage.fromNearbyMessage(message).getMessageBody());
+                        AnuncioMessage.fromNearbyMessage(message).getAnuncio().toString());
             }
 
             @Override
             public void onLost(final Message message) {
                 // Called when a message is no longer detectable nearby.
                 mNearbyDevicesArrayAdapter.remove(
-                        AnuncioMessage.fromNearbyMessage(message).getMessageBody());
+                        AnuncioMessage.fromNearbyMessage(message).getAnuncio().toString());
             }
         };
 

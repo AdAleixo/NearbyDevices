@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.anuncio.AnuncioListActivity;
-import com.github.promoapp.apresentacao.anuncio.TelaAnuncio;
 import com.github.promoapp.apresentacao.promocao.TelaOferta;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,11 +22,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Button Anunciar
-    public void openTelaAnuncio(View view) {
-        Intent intent = new Intent(MainActivity.this, TelaAnuncio.class);
-        startActivity(intent);
-    }
+
 
     //Button Ofertas
     public void openTelaOfertas(View view) {
