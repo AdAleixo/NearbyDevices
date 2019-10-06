@@ -8,17 +8,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.github.promoapp.R;
 import com.github.promoapp.dominio.anuncio.Anuncio;
 import com.github.promoapp.dominio.anuncio.AnuncioRepository;
 
-import java.util.Date;
 import java.util.List;
 
 public class AnuncioListActivity extends AppCompatActivity {
@@ -91,7 +92,7 @@ public class AnuncioListActivity extends AppCompatActivity {
     }
 
     public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.AnuncioViewHolder> {
 
         private final AnuncioListActivity mParentActivity;
         private final List<Anuncio> mValues;
@@ -130,15 +131,15 @@ public class AnuncioListActivity extends AppCompatActivity {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public AnuncioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.anuncio_list_content, parent, false);
 
-            return new ViewHolder(view);
+            return new AnuncioViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final AnuncioViewHolder holder, int position) {
             holder.mIdView.setText(mValues.get(position).getId().toString());
             holder.mContentView.setText(mValues.get(position).getNome());
 
@@ -151,14 +152,33 @@ public class AnuncioListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
+        class AnuncioViewHolder extends RecyclerView.ViewHolder {
 
-            ViewHolder(View view) {
+            TextView mIdView;
+            TextView mContentView;
+            SwitchCompat mPublishSwitch;
+
+            AnuncioViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = view.findViewById(R.id.id_text);
+                mContentView = view.findViewById(R.id.content);
+                mPublishSwitch = view.findViewById(R.id.publish_switch);
+
+                mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        // If GoogleApiClient is connected, perform pub actions in response to user action.
+                        // If it isn't connected, do nothing, and perform pub actions when it connects (see
+                        // onConnected()).
+                        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                            if (isChecked) {
+                                publish();
+                            } else {
+                                unpublish();
+                            }
+                        }
+                    }
+                });
             }
         }
     }

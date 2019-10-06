@@ -33,7 +33,9 @@ public class AnuncioDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
+                    AnuncioRepository anuncioRepository = new AnuncioRepository(
+                            getApplicationContext());
+
                     Anuncio anuncio = new Anuncio();
 
                     EditText nomeAnuncioText = (EditText) findViewById(R.id.nomeText);

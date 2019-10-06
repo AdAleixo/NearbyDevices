@@ -128,7 +128,6 @@ public class TelaAnuncio extends AppCompatActivity implements GoogleApiClient.Co
      * TTLs.
      */
     private void publish() {
-
         mPubMessage = AnuncioMessage.newNearbyMessage(getUUID(getSharedPreferences(
                 getApplicationContext().getPackageName(), Context.MODE_PRIVATE)));
         Log.i(TAG, "Publishing");
