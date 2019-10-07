@@ -26,7 +26,7 @@
         android:id="@+id/anunciosButton"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:background="@color/AmareloClaro"
+        android:background="#FFFE91"
         android:onClick="exibirAnuncioListActivity"
         android:text="@string/tituloAnuncios" />
 
