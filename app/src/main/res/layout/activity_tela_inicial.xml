@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fundo1"
-    tools:context=".TelaInicial">
+    tools:context="com.github.promoapp.apresentacao.inicio.TelaInicial">
 
     <Button
         android:id="@+id/button2"

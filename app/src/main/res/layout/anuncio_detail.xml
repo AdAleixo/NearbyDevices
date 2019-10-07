@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anuncio_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/TeladeFundo"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="199dp"
-        android:text="@string/telaCriaanuncio"
-        android:textSize="36sp" />
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".apresentacao.anuncio.AnuncioDetailFragment">
 
     <EditText
         android:id="@+id/nomeText"
@@ -46,10 +42,4 @@
         android:hint="@string/linkProduto"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/salvarButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFC107"
-        android:text="Salvar" />
 </LinearLayout>

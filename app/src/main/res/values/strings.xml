@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NearbyDevices</string>
+    <string name="app_name">PromoApp</string>
 
     <string name="discover_nearby_devices">Ver ofertas</string>
     <string name="share_device_information">Anunciar</string>
@@ -15,8 +15,18 @@
     <string name="nomeProduto">Nome do produto:</string>
     <string name="telaCriaanuncio">Cadastre os produtos que deseja anunciar:</string>
     <string name="criaAnuncioProdutoNome">Nome do Produto:</string>
-    <string name="hintProdutoNome">Coloque o nome do produto</string>
+
     <string name="criaAnuncioProdutoPreco">Preço do produto</string>
     <string name="linkProduto">Coloque o link do produto</string>
+    <string name="title_anuncio_list">Anuncios</string>
+    <string name="title_anuncio_detail">Anuncio Detail</string>
+    <string name="tituloAnuncios">Anúncios</string>
+
+    <string name="hintNomeAnuncio">Nome do Anúncio:</string>
+    <string name="hintProdutoNome">Nome do Produto:</string>
+    <string name="hintPrecoProduto">Preço do Produto:</string>
+    <string name="hintLinkProduto">Coloque o link do produto:</string>
+    <string name="anuncioLabel">Anúncio</string>
+
 
 </resources>

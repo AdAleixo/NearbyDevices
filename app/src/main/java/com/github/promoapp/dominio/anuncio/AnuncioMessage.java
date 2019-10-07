@@ -1,5 +1,4 @@
-package com.google.android.gms.nearby.messages.samples.nearbydevices;
-import android.os.Build;
+package com.github.promoapp.dominio.anuncio;
 
 import com.google.android.gms.nearby.messages.Message;
 import com.google.gson.Gson;
@@ -12,40 +11,38 @@ import java.nio.charset.Charset;
  * to the Message payload, which helps Nearby distinguish between multiple devices with
  * the same model name.
  */
-public class DeviceMessage {
+public class AnuncioMessage {
     private static final Gson gson = new Gson();
 
     private final String mUUID;
-    private final String mMessageBody;
-    private final String mMessageUrl;
+    private final Anuncio mAnuncio;
 
     /**
      * Builds a new {@link Message} object using a unique identifier.
      */
-    public static Message newNearbyMessage(String instanceId) {
-        DeviceMessage deviceMessage = new DeviceMessage(instanceId);
-        return new Message(gson.toJson(deviceMessage).getBytes(Charset.forName("UTF-8")));
+    public static Message newNearbyMessage(String instanceId, Anuncio anuncio) {
+        AnuncioMessage anuncioMessage = new AnuncioMessage(instanceId, anuncio);
+        return new Message(gson.toJson(anuncioMessage).getBytes(Charset.forName("UTF-8")));
     }
 
     /**
      * Creates a {@code DeviceMessage} object from the string used to construct the payload to a
      * {@code Nearby} {@code Message}.
      */
-    public static DeviceMessage fromNearbyMessage(Message message) {
+    public static AnuncioMessage fromNearbyMessage(Message message) {
         String nearbyMessageString = new String(message.getContent()).trim();
+
         return gson.fromJson(
                 (new String(nearbyMessageString.getBytes(Charset.forName("UTF-8")))),
-                DeviceMessage.class);
+                AnuncioMessage.class);
     }
 
-    private DeviceMessage(String uuid) {
+    private AnuncioMessage(String uuid, Anuncio anuncio) {
         mUUID = uuid;
-        mMessageBody = Build.MODEL;
-        mMessageUrl = "https://www.facebook.com";
-        // TODO(developer): add other fields that must be included in the Nearby Message payload.
+        mAnuncio = anuncio;
     }
 
-    protected String getMessageBody() {
-        return mMessageBody + " " + mMessageUrl;
+    public Anuncio getAnuncio() {
+        return mAnuncio;
     }
 }

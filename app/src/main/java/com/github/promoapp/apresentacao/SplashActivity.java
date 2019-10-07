@@ -1,9 +1,11 @@
-package com.google.android.gms.nearby.messages.samples.nearbydevices;
+package com.github.promoapp.apresentacao;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import com.github.promoapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 

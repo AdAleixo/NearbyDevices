@@ -11,24 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="16dp"
-    tools:context="com.google.android.gms.nearby.messages.samples.nearbydevices.MainActivity">
-
-
-    <Button
-        android:id="@+id/buttonCrairAnuncio"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:background="@color/LaranjaVerm"
-        android:onClick="openTelaCriaAnuncio"
-        android:text="@string/ButtonCriarAnuncio" />
-
-    <Button
-        android:id="@+id/buttonAnunciar"
-        android:layout_width="match_parent"
-        android:layout_height="79dp"
-        android:background="#FFC107"
-        android:onClick="openTelaAnuncio"
-        android:text="@string/ButtonAnuncio" />
+    tools:context="com.github.promoapp.apresentacao.MainActivity">
 
 
     <Button
@@ -39,6 +22,13 @@
         android:onClick="openTelaOfertas"
         android:text="@string/ButtonOferta" />
 
+    <Button
+        android:id="@+id/anunciosButton"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@color/AmareloClaro"
+        android:onClick="exibirAnuncioListActivity"
+        android:text="@string/tituloAnuncios" />
 
 
 </LinearLayout>
