@@ -24,4 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:text="Anunciar" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="26dp"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/text_margin"
+        android:background="@android:drawable/btn_dialog" />
+
+
+
 </LinearLayout>

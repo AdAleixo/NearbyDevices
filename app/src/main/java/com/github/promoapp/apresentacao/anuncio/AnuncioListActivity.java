@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -225,6 +226,9 @@ public class AnuncioListActivity extends AppCompatActivity
             TextView mIdView;
             TextView mContentView;
             Switch mPublishSwitch;
+
+            Button mDeleteButton;
+
             GoogleApiClient mGoogleApiClient;
             View mView;
             Anuncio mAnuncio;
@@ -242,6 +246,8 @@ public class AnuncioListActivity extends AppCompatActivity
                 mIdView = view.findViewById(R.id.id_text);
                 mContentView = view.findViewById(R.id.content);
                 mPublishSwitch = view.findViewById(R.id.publishSwitch);
+
+                mDeleteButton = view.findViewById(R.id.deleteButton);
 
                 mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
