@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ import com.google.android.gms.nearby.messages.PublishCallback;
 import com.google.android.gms.nearby.messages.PublishOptions;
 import com.google.android.gms.nearby.messages.Strategy;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -248,6 +250,33 @@ public class AnuncioListActivity extends AppCompatActivity
                 mPublishSwitch = view.findViewById(R.id.publishSwitch);
 
                 mDeleteButton = view.findViewById(R.id.deleteButton);
+
+                mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            AnuncioRepository anuncioRepository = new AnuncioRepository(
+                                    mActivity.getApplicationContext());
+
+                            Anuncio anuncio = new Anuncio();
+
+                            anuncioRepository.deletar(anuncio);
+
+                            Snackbar.make(view, "Anúncio deletado com sucesso", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        } catch (Exception ex) {
+                            Snackbar.make(view, "Ocorreu um erro ao tentar deletar o anúncio",
+                                    Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            Log.i(getClass().getSimpleName(),ex.getMessage());
+                            ex.printStackTrace();
+
+                        }
+                    }
+                });
+
+
+
 
                 mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
