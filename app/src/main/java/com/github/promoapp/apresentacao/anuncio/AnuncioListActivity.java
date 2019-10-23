@@ -50,6 +50,7 @@ public class AnuncioListActivity extends AppCompatActivity
     private boolean mTwoPane;
     GoogleApiClient mGoogleApiClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -249,18 +250,27 @@ public class AnuncioListActivity extends AppCompatActivity
                 mContentView = view.findViewById(R.id.content);
                 mPublishSwitch = view.findViewById(R.id.publishSwitch);
 
+
                 mDeleteButton = view.findViewById(R.id.deleteButton);
 
+                //Button para deletar anuncio
                 mDeleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
-                            AnuncioRepository anuncioRepository = new AnuncioRepository(
-                                    mActivity.getApplicationContext());
 
-                            Anuncio anuncio = new Anuncio();
 
-                            anuncioRepository.deletar(anuncio);
+                                AnuncioRepository anuncioRepository = new AnuncioRepository(
+                                        mActivity.getApplicationContext());
+
+
+
+                                Long id = mAnuncio.getId();
+                                mAnuncio = anuncioRepository.recuperarPorId(id);
+
+                                anuncioRepository.deletar(mAnuncio);
+
+                            
 
                             Snackbar.make(view, "Anúncio deletado com sucesso", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();

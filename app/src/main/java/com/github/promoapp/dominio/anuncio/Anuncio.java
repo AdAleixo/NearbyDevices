@@ -25,12 +25,12 @@ public class Anuncio {
 
     @Override
     public String toString() {
-        return "Anuncio{" +
-                "nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", preco=" + preco +
-                ", url='" + url + '\'' +
-                '}';
+            return "Anuncio{" +
+                    "nome='" + nome + '\'' +
+                    ", descricao='" + descricao + '\'' +
+                    ", preco=" + preco +
+                    ", url='" + url + '\'' +
+                    '}';
     }
 
     public Long getId() {
