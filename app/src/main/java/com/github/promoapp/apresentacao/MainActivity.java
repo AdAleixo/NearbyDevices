@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //Button Anuncios
     public void exibirAnuncioListActivity(View view) {
         Intent intent = new Intent(MainActivity.this, AnuncioListActivity.class);
         startActivity(intent);

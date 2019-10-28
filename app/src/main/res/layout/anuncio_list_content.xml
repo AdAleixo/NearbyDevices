@@ -16,6 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:layout_toEndOf="@+id/publish_switch"
+        android:layout_toRightOf="@+id/id_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <Switch
@@ -23,6 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:layout_toEndOf="@+id/deleteButton"
+        android:layout_toRightOf="@+id/content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:text="Anunciar" />
 
     <Button
@@ -30,6 +39,10 @@
         android:layout_width="26dp"
         android:layout_height="24dp"
         android:layout_margin="@dimen/text_margin"
+
+        android:layout_toRightOf="@+id/publishSwitch"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@android:drawable/btn_dialog" />
 
 

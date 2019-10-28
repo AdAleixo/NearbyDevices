@@ -258,19 +258,12 @@ public class AnuncioListActivity extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         try {
-
-
                                 AnuncioRepository anuncioRepository = new AnuncioRepository(
                                         mActivity.getApplicationContext());
-
-
-
                                 Long id = mAnuncio.getId();
                                 mAnuncio = anuncioRepository.recuperarPorId(id);
 
                                 anuncioRepository.deletar(mAnuncio);
-
-                            
 
                             Snackbar.make(view, "Anúncio deletado com sucesso", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
