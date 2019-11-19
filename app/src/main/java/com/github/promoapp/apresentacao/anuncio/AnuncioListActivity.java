@@ -96,14 +96,14 @@ public class AnuncioListActivity extends AppCompatActivity
         }
 
         View recyclerView = findViewById(R.id.anuncio_list);
-        assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
         buildGoogleApiClient();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.i(getClass().getSimpleName(), "GoogleApiClient connected");
+        View recyclerView = findViewById(R.id.anuncio_list);
+        setupRecyclerView((RecyclerView) recyclerView);
     }
 
     @Override
@@ -142,7 +142,6 @@ public class AnuncioListActivity extends AppCompatActivity
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         try {
             AnuncioRepository anuncioRepository = new AnuncioRepository(getApplicationContext());
-
             List<Anuncio> anuncios = anuncioRepository.recuperarTodos();
 
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, anuncios,
@@ -277,9 +276,6 @@ public class AnuncioListActivity extends AppCompatActivity
                         }
                     }
                 });
-
-
-
 
                 mPublishSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override

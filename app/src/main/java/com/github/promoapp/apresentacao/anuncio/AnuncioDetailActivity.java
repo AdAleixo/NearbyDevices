@@ -62,9 +62,9 @@ public class AnuncioDetailActivity extends AppCompatActivity {
                     Snackbar.make(view, "Ocorreu um erro ao tentar salvar o anúncio",
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
                     Log.i(getClass().getSimpleName(),ex.getMessage());
                     ex.printStackTrace();
-
                 }
             }
         });

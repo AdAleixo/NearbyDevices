@@ -27,6 +27,8 @@
     <string name="hintPrecoProduto">Preço do Produto:</string>
     <string name="hintLinkProduto">Coloque o link do produto:</string>
     <string name="anuncioLabel">Anúncio</string>
+    <string name="title_promocao_list">Promocoes</string>
+    <string name="title_promocao_detail">Promocao Detail</string>
 
 
 </resources>
