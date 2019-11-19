@@ -7,7 +7,7 @@ public class Anuncio {
     private Long id;
     private String nome;
     private String descricao;
-    private Double preco=0.0;
+    private Double preco = 0.0;
     private String url;
     private Date validade;
 
@@ -23,14 +23,19 @@ public class Anuncio {
         this.validade = validade;
     }
 
+    public String getItemLista() {
+        return "Nome: " + nome + "\nDescrição: " + descricao + "\nPreço: " + preco
+                + "\n Link: " + url;
+    }
+
     @Override
     public String toString() {
-            return "Anuncio{" +
-                    "nome='" + nome + '\'' +
-                    ", descricao='" + descricao + '\'' +
-                    ", preco=" + preco +
-                    ", url='" + url + '\'' +
-                    '}';
+        return "Anuncio{" +
+                "nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", preco=" + preco +
+                ", url='" + url + '\'' +
+                '}';
     }
 
     public Long getId() {

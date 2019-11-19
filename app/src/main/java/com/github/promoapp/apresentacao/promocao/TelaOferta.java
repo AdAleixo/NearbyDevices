@@ -16,7 +16,9 @@ import android.widget.ListView;
 
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.MainActivity;
+import com.github.promoapp.dominio.anuncio.Anuncio;
 import com.github.promoapp.dominio.anuncio.AnuncioMessage;
+import com.github.promoapp.dominio.promocao.PromocaoRepository;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -92,19 +94,17 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verofertas);
-        mSubscribeSwitch = (SwitchCompat) findViewById(R.id.subscribe_switch);
+        mSubscribeSwitch = findViewById(R.id.subscribe_switch);
 
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(final Message message) {
-                // Called when a new message is found.
-                mNearbyDevicesArrayAdapter.add(
-                        AnuncioMessage.fromNearbyMessage(message).getAnuncio().toString());
+                Anuncio anuncio = AnuncioMessage.fromNearbyMessage(message).getAnuncio();
+                mNearbyDevicesArrayAdapter.add(anuncio.getItemLista());
             }
 
             @Override
             public void onLost(final Message message) {
-                // Called when a message is no longer detectable nearby.
                 mNearbyDevicesArrayAdapter.remove(
                         AnuncioMessage.fromNearbyMessage(message).getAnuncio().toString());
             }

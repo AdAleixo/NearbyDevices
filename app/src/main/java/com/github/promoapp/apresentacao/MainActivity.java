@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.anuncio.AnuncioListActivity;
+import com.github.promoapp.apresentacao.promocao.PromocaoListActivity;
 import com.github.promoapp.apresentacao.promocao.TelaOferta;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    //Button Anuncios
     public void exibirAnuncioListActivity(View view) {
         Intent intent = new Intent(MainActivity.this, AnuncioListActivity.class);
         startActivity(intent);
@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Button Ofertas
     public void openTelaOfertas(View view) {
-        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
+//        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
+//        startActivity(intent);
+
+        Intent intent = new Intent(MainActivity.this, PromocaoListActivity.class);
         startActivity(intent);
     }
-
-   
-
 }
