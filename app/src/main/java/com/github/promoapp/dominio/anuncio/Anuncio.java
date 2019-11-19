@@ -1,6 +1,7 @@
 package com.github.promoapp.dominio.anuncio;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Anuncio {
 
@@ -84,5 +85,18 @@ public class Anuncio {
 
     public void setValidade(Date validade) {
         this.validade = validade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Anuncio anuncio = (Anuncio) o;
+        return Objects.equals(id, anuncio.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

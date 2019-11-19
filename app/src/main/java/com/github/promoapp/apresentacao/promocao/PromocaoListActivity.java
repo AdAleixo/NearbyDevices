@@ -1,94 +1,192 @@
 package com.github.promoapp.apresentacao.promocao;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.promoapp.R;
+import com.github.promoapp.dominio.anuncio.Anuncio;
+import com.github.promoapp.dominio.anuncio.AnuncioMessage;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
+import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.android.gms.nearby.messages.Strategy;
+import com.google.android.gms.nearby.messages.SubscribeCallback;
+import com.google.android.gms.nearby.messages.SubscribeOptions;
 
-import com.github.promoapp.apresentacao.promocao.dummy.DummyContent;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class PromocaoListActivity extends AppCompatActivity {
+public class PromocaoListActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private boolean mTwoPane;
+    private static final int TTL_IN_SECONDS = 3 * 60; // Three minutes.
+    private GoogleApiClient mGoogleApiClient;
+    private static final String KEY_UUID = "key_uuid";
+
+    private Message mPubMessage;
+    private MessageListener mMessageListener;
+    private List<Anuncio> mAnuncios = new ArrayList<>();
+
+    private static final Strategy PUB_SUB_STRATEGY = (new Strategy.Builder()).zze(2)
+            .setTtlSeconds(TTL_IN_SECONDS).build();
+
+    private static String getUUID(SharedPreferences sharedPreferences) {
+        String uuid = sharedPreferences.getString(KEY_UUID, "");
+        if (TextUtils.isEmpty(uuid)) {
+            uuid = UUID.randomUUID().toString();
+            sharedPreferences.edit().putString(KEY_UUID, uuid).apply();
+        }
+        return uuid;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promocao_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         if (findViewById(R.id.promocao_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
         }
 
         View recyclerView = findViewById(R.id.promocao_list);
-        assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+        mMessageListener = new MessageListener() {
+            @Override
+            public void onFound(final Message message) {
+                Anuncio anuncio = AnuncioMessage.fromNearbyMessage(message).getAnuncio();
+                mAnuncios.add(anuncio);
+
+                View recyclerView = findViewById(R.id.promocao_list);
+                setupRecyclerView((RecyclerView) recyclerView);
+            }
+
+            @Override
+            public void onLost(final Message message) {
+                mAnuncios.remove(AnuncioMessage.fromNearbyMessage(message).getAnuncio());
+
+                View recyclerView = findViewById(R.id.promocao_list);
+                setupRecyclerView((RecyclerView) recyclerView);
+            }
+        };
+
+        buildGoogleApiClient();
+
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            subscribe();
+        }
     }
 
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        unsubscribe();
+//    }
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this,
+                mAnuncios, mTwoPane));
+    }
+
+    private void buildGoogleApiClient() {
+        if (mGoogleApiClient != null) {
+            return;
+        }
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Nearby.MESSAGES_API)
+                .addConnectionCallbacks(this)
+                .enableAutoManage(this, this)
+                .build();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        logAndShowSnackbar("Exception while connecting to Google Play services: " +
+                connectionResult.getErrorMessage());
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        logAndShowSnackbar("Connection suspended. Error code: " + i);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        subscribe();
+    }
+
+    /**
+     * Subscribes to messages from nearby devices and updates the UI if the subscription either
+     * fails or TTLs.
+     */
+    private void subscribe() {
+        SubscribeOptions options = new SubscribeOptions.Builder()
+                .setStrategy(PUB_SUB_STRATEGY)
+                .setCallback(new SubscribeCallback() {
+                    @Override
+                    public void onExpired() {
+                        super.onExpired();
+                    }
+                }).build();
+
+        Nearby.Messages.subscribe(mGoogleApiClient, mMessageListener, options)
+                .setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (!status.isSuccess()) {
+                            logAndShowSnackbar("Could not subscribe, status = " + status);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Stops subscribing to messages from nearby devices.
+     */
+    private void unsubscribe() {
+        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+    }
+
+    private void logAndShowSnackbar(final String text) {
+        View container = findViewById(R.id.activity_main_container);
+
+        if (container != null) {
+            Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final PromocaoListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Anuncio> mValues;
         private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(PromocaoDetailFragment.ARG_ITEM_ID, item.id);
-                    PromocaoDetailFragment fragment = new PromocaoDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.promocao_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, PromocaoDetailActivity.class);
-                    intent.putExtra(PromocaoDetailFragment.ARG_ITEM_ID, item.id);
 
-                    context.startActivity(intent);
-                }
-            }
-        };
-
-        SimpleItemRecyclerViewAdapter(PromocaoListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+        SimpleItemRecyclerViewAdapter(PromocaoListActivity parent, List<Anuncio> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -97,18 +195,17 @@ public class PromocaoListActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.promocao_list_content, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.promocao_list_content, parent, false);
+
             return new ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
+            holder.mIdView.setText(mValues.get(position).getId().toString());
+            holder.mContentView.setText(mValues.get(position).getNome());
             holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         @Override
@@ -122,8 +219,8 @@ public class PromocaoListActivity extends AppCompatActivity {
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = view.findViewById(R.id.id_text);
+                mContentView = view.findViewById(R.id.content);
             }
         }
     }
