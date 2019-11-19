@@ -225,7 +225,7 @@ public class AnuncioListActivity extends AppCompatActivity
             private final Strategy PUB_SUB_STRATEGY = (new Strategy.Builder()).zze(2)
                     .setTtlSeconds(TTL_IN_SECONDS).build();
 
-            TextView mIdView;
+            // TextView mIdView;
             TextView mContentView;
             Switch mPublishSwitch;
 
@@ -245,7 +245,7 @@ public class AnuncioListActivity extends AppCompatActivity
                 mView = view;
                 mActivity = activity;
                 mGoogleApiClient = googleApiClient;
-                mIdView = view.findViewById(R.id.id_text);
+               // mIdView = view.findViewById(R.id.id_text);
                 mContentView = view.findViewById(R.id.content);
                 mPublishSwitch = view.findViewById(R.id.publishSwitch);
 
