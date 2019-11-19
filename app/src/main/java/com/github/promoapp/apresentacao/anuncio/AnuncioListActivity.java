@@ -204,7 +204,7 @@ public class AnuncioListActivity extends AppCompatActivity
 
         @Override
         public void onBindViewHolder(final AnuncioViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).getId().toString());
+
             holder.mContentView.setText(mValues.get(position).getNome());
             holder.mAnuncio = mValues.get(position);
 
