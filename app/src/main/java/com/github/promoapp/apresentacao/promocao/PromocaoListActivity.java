@@ -203,8 +203,9 @@ public class PromocaoListActivity extends AppCompatActivity implements
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).getId().toString());
-            holder.mContentView.setText(mValues.get(position).getNome());
+            Anuncio anuncio = mValues.get(position);
+            holder.mAnuncioLinkView.setText(anuncio.getUrl());
+            holder.mContentView.setText(anuncio.getNome());
             holder.itemView.setTag(mValues.get(position));
         }
 
@@ -214,12 +215,13 @@ public class PromocaoListActivity extends AppCompatActivity implements
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
+
             final TextView mContentView;
+            final TextView mAnuncioLinkView;
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = view.findViewById(R.id.id_text);
+                mAnuncioLinkView = view.findViewById(R.id.anuncio_url);
                 mContentView = view.findViewById(R.id.content);
             }
         }
