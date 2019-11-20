@@ -274,6 +274,7 @@ public class AnuncioListActivity extends AppCompatActivity
                             ex.printStackTrace();
 
                         }
+
                     }
                 });
 
@@ -353,6 +354,7 @@ public class AnuncioListActivity extends AppCompatActivity
                     Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
                 }
             }
+
         }
     }
 }

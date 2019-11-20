@@ -21,17 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".apresentacao.promocao.PromocaoListActivity"
+            android:name=".apresentacao.promocao.TelaOferta"
             android:label="@string/title_promocao_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".apresentacao.promocao.PromocaoDetailActivity"
             android:label="@string/title_promocao_detail"
-            android:parentActivityName=".apresentacao.promocao.PromocaoListActivity"
+            android:parentActivityName=".apresentacao.promocao.TelaOferta"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.github.promoapp.apresentacao.promocao.PromocaoListActivity" />
+                android:value="com.github.promoapp.apresentacao.promocao.TelaOferta" />
         </activity>
         <activity
             android:name=".apresentacao.anuncio.AnuncioListActivity"

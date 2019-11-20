@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".apresentacao.promocao.PromocaoListActivity">
+    tools:context=".apresentacao.promocao.TelaOferta">
 
     <!--
     This layout is a two-pane layout for the Promocoes
@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.github.promoapp.apresentacao.promocao.PromocaoListActivity"
+        tools:context="com.github.promoapp.apresentacao.promocao.TelaOferta"
         tools:listitem="@layout/promocao_list_content" />
 
     <FrameLayout

@@ -6,19 +6,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.promoapp.R;
-import com.github.promoapp.apresentacao.MainActivity;
 import com.github.promoapp.dominio.anuncio.Anuncio;
 import com.github.promoapp.dominio.anuncio.AnuncioMessage;
-import com.github.promoapp.dominio.promocao.PromocaoRepository;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -34,29 +32,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TelaOferta extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+public class TelaOferta extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-        GoogleApiClient.OnConnectionFailedListener {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
-
+    private boolean mTwoPane;
     private static final int TTL_IN_SECONDS = 3 * 60; // Three minutes.
-
-    // Key used in writing to and reading from SharedPreferences.
+    private GoogleApiClient mGoogleApiClient;
     private static final String KEY_UUID = "key_uuid";
 
-    /**
-     * Sets the time in seconds for a published message or a subscription to live. Set to three
-     * minutes.
-     */
+    private Message mPubMessage;
+    private MessageListener mMessageListener;
+    private List<Anuncio> mAnuncios = new ArrayList<>();
+
     private static final Strategy PUB_SUB_STRATEGY = (new Strategy.Builder()).zze(2)
             .setTtlSeconds(TTL_IN_SECONDS).build();
 
-    /**
-     * Creates a UUID and saves it to {@link SharedPreferences}. The UUID is added to the published
-     * message to avoid it being undelivered due to de-duplication. See {@link AnuncioMessage} for
-     * details.
-     */
     private static String getUUID(SharedPreferences sharedPreferences) {
         String uuid = sharedPreferences.getString(KEY_UUID, "");
         if (TextUtils.isEmpty(uuid)) {
@@ -66,82 +56,59 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
         return uuid;
     }
 
-    /**
-     * The entry point to Google Play Services.
-     */
-    private GoogleApiClient mGoogleApiClient;
-
-    // Views.
-
-    private SwitchCompat mSubscribeSwitch;
-
-    /**
-     * The {@link Message} object used to broadcast information about the device to nearby devices.
-     */
-    private Message mPubMessage;
-
-    /**
-     * A {@link MessageListener} for processing messages from nearby devices.
-     */
-    private MessageListener mMessageListener;
-
-    /**
-     * Adapter for working with messages from nearby publishers.
-     */
-    private ArrayAdapter<String> mNearbyDevicesArrayAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verofertas);
-        mSubscribeSwitch = findViewById(R.id.subscribe_switch);
+        setContentView(R.layout.activity_promocao_list);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());
+
+        if (findViewById(R.id.promocao_detail_container) != null) {
+            mTwoPane = true;
+        }
+
+        View recyclerView = findViewById(R.id.promocao_list);
+        setupRecyclerView((RecyclerView) recyclerView);
 
         mMessageListener = new MessageListener() {
             @Override
             public void onFound(final Message message) {
                 Anuncio anuncio = AnuncioMessage.fromNearbyMessage(message).getAnuncio();
-                mNearbyDevicesArrayAdapter.add(anuncio.getItemLista());
+                mAnuncios.add(anuncio);
+
+                View recyclerView = findViewById(R.id.promocao_list);
+                setupRecyclerView((RecyclerView) recyclerView);
             }
 
             @Override
             public void onLost(final Message message) {
-                mNearbyDevicesArrayAdapter.remove(
-                        AnuncioMessage.fromNearbyMessage(message).getAnuncio().toString());
+                mAnuncios.remove(AnuncioMessage.fromNearbyMessage(message).getAnuncio());
+                View recyclerView = findViewById(R.id.promocao_list);
+                setupRecyclerView((RecyclerView) recyclerView);
             }
         };
 
-        mSubscribeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // If GoogleApiClient is connected, perform sub actions in response to user action.
-                // If it isn't connected, do nothing, and perform sub actions when it connects (see
-                // onConnected()).
-                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-                    if (isChecked) {
-                        subscribe();
-                    } else {
-                        unsubscribe();
-                    }
-                }
-            }
-        });
-        final List<String> nearbyDevicesArrayList = new ArrayList<>();
-        mNearbyDevicesArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                nearbyDevicesArrayList);
-        final ListView nearbyDevicesListView = (ListView) findViewById(
-                R.id.nearby_devices_list_view);
-        if (nearbyDevicesListView != null) {
-            nearbyDevicesListView.setAdapter(mNearbyDevicesArrayAdapter);
-        }
         buildGoogleApiClient();
+
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            subscribe();
+        }
     }
 
+
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this,
+                mAnuncios, mTwoPane));
+    }
 
     private void buildGoogleApiClient() {
         if (mGoogleApiClient != null) {
             return;
         }
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Nearby.MESSAGES_API)
                 .addConnectionCallbacks(this)
@@ -151,8 +118,6 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        mSubscribeSwitch.setEnabled(false);
         logAndShowSnackbar("Exception while connecting to Google Play services: " +
                 connectionResult.getErrorMessage());
     }
@@ -164,16 +129,7 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.i(TAG, "GoogleApiClient connected");
-        // We use the Switch buttons in the UI to track whether we were previously doing pub/sub (
-        // switch buttons retain state on orientation change). Since the GoogleApiClient disconnects
-        // when the activity is destroyed, foreground pubs/subs do not survive device rotation. Once
-        // this activity is re-created and GoogleApiClient connects, we check the UI and pub/sub
-        // again if necessary.
-
-        if (mSubscribeSwitch.isChecked()) {
-            subscribe();
-        }
+        subscribe();
     }
 
     /**
@@ -181,21 +137,12 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
      * fails or TTLs.
      */
     private void subscribe() {
-        Log.i(TAG, "Subscribing");
-        mNearbyDevicesArrayAdapter.clear();
         SubscribeOptions options = new SubscribeOptions.Builder()
                 .setStrategy(PUB_SUB_STRATEGY)
                 .setCallback(new SubscribeCallback() {
                     @Override
                     public void onExpired() {
                         super.onExpired();
-                        Log.i(TAG, "No longer subscribing");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mSubscribeSwitch.setChecked(false);
-                            }
-                        });
                     }
                 }).build();
 
@@ -203,11 +150,8 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
                 .setResultCallback(new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()) {
-                            Log.i(TAG, "Subscribed successfully.");
-                        } else {
+                        if (!status.isSuccess()) {
                             logAndShowSnackbar("Could not subscribe, status = " + status);
-                            mSubscribeSwitch.setChecked(false);
                         }
                     }
                 });
@@ -216,21 +160,67 @@ public class TelaOferta extends AppCompatActivity implements GoogleApiClient.Con
     /**
      * Stops subscribing to messages from nearby devices.
      */
-    private void unsubscribe() {
-        Log.i(TAG, "Unsubscribing.");
-        Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
-    }
+    //private void unsubscribe() {
+      //  Nearby.Messages.unsubscribe(mGoogleApiClient, mMessageListener);
+    //}
 
-    /**
-     * Logs a message and shows a {@link Snackbar} using {@code text};
-     *
-     * @param text The text used in the Log message and the SnackBar.
-     */
     private void logAndShowSnackbar(final String text) {
-        Log.w(TAG, text);
         View container = findViewById(R.id.activity_main_container);
+
         if (container != null) {
             Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public static class SimpleItemRecyclerViewAdapter
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+
+        private final TelaOferta mParentActivity;
+        private final List<Anuncio> mValues;
+        private final boolean mTwoPane;
+
+        SimpleItemRecyclerViewAdapter(TelaOferta parent, List<Anuncio> items,
+                                      boolean twoPane) {
+            mValues = items;
+            mParentActivity = parent;
+            mTwoPane = twoPane;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.promocao_list_content, parent, false);
+
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            Anuncio anuncio = mValues.get(position);
+            holder.mAnuncioLinkView.setText(anuncio.getUrl());
+            holder.mContentView.setText(anuncio.getNome());
+            holder.itemView.setTag(mValues.get(position));
+            //holder.mAnuncioPreco.setText(anuncio.getPreco().toString());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mValues.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            final TextView mContentView;
+            final TextView mAnuncioLinkView;
+           // final TextView mAnuncioPreco;
+
+            ViewHolder(View view) {
+                super(view);
+                mAnuncioLinkView = view.findViewById(R.id.anuncio_url);
+                mContentView = view.findViewById(R.id.content);
+              //  mAnuncioPreco = view.findViewById(R.id.precoProdutoText);
+            }
         }
     }
 }

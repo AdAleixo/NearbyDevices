@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.github.promoapp.R;
 import com.github.promoapp.apresentacao.anuncio.AnuncioListActivity;
-import com.github.promoapp.apresentacao.promocao.PromocaoListActivity;
 import com.github.promoapp.apresentacao.promocao.TelaOferta;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
 //        startActivity(intent);
 
-        Intent intent = new Intent(MainActivity.this, PromocaoListActivity.class);
+        Intent intent = new Intent(MainActivity.this, TelaOferta.class);
         startActivity(intent);
     }
 }
