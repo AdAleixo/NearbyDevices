@@ -200,7 +200,7 @@ public class TelaOferta extends AppCompatActivity implements
             holder.mAnuncioLinkView.setText(anuncio.getUrl());
             holder.mContentView.setText(anuncio.getNome());
             holder.itemView.setTag(mValues.get(position));
-            //holder.mAnuncioPreco.setText(anuncio.getPreco().toString());
+            holder.mAnuncioPreco.setText(anuncio.getPreco().toString());
 
         }
 
@@ -213,13 +213,15 @@ public class TelaOferta extends AppCompatActivity implements
 
             final TextView mContentView;
             final TextView mAnuncioLinkView;
-           // final TextView mAnuncioPreco;
+            final TextView mAnuncioPreco;
+            final TextView mAnuncioDescricao;
 
             ViewHolder(View view) {
                 super(view);
                 mAnuncioLinkView = view.findViewById(R.id.anuncio_url);
                 mContentView = view.findViewById(R.id.content);
-              //  mAnuncioPreco = view.findViewById(R.id.precoProdutoText);
+              mAnuncioPreco = view.findViewById(R.id.precoProdutoText);
+              mAnuncioDescricao = view.findViewById(R.id.anuncio_descricao);
             }
         }
     }
