@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-       
+
         <activity
             android:name=".apresentacao.promocao.TelaOferta"
             android:label="@string/title_promocao_detail"
